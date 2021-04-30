@@ -9,6 +9,11 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BreadcrumpsComponent } from './shared/breadcrumps/breadcrumps.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { ProgressComponent } from './pages/progress/progress.component';
+import { Grafica1Component } from './pages/grafica1/grafica1.component';
+import { AppRoutes } from './app.routing';
+import { PagesComponent } from './pages/pages.component';
+
 
 @NgModule({
   declarations: [
@@ -19,10 +24,14 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     DashboardComponent,
     BreadcrumpsComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProgressComponent,
+    Grafica1Component,
+    PagesComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutes
   ],
   providers: [],
   bootstrap: [AppComponent]
