@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthRouting } from './auth/auth.routing';
 
 
-import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { PagesRoutingModule } from './pages/pages.routing';
 
 const routes: Routes = [
