@@ -17,6 +17,7 @@ export class ProgressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   get getProgreso1() {

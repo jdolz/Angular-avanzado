@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app.routing';
 import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -23,7 +24,8 @@ import { ComponentsModule } from '../components/components.module';
     SharedModule,
     AppRoutingModule,
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    ChartsModule
   ],
   exports: [
     DashboardComponent,
