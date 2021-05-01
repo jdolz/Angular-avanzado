@@ -11,8 +11,6 @@ import { ComponentsModule } from '../components/components.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
