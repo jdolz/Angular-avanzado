@@ -15,9 +15,8 @@
                         <li><a href="javascript:void()">My Profile </a></li>
                         <li><a href="javascript:void()">My Balance</a></li>
                         <li><a href="javascript:void()">Inbox</a></li>
-                        <li><a [routerLink]="['account-settings']" routerLinkActive="router-link-active"
-                                routerLinkActive="router-link-active">Account Setting</a></li>
-                        <li><a [routerLink]="['/login']">Logout</a></li>
+                        <li><a [routerLink]="['account-settings']" routerLinkActive="active">Account Setting</a></li>
+                        <li><a [routerLink]="['/login']" routerLinkActive="active">Logout</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>
@@ -30,7 +29,8 @@
                         </span>
                     </a>
                     <ul aria-expanded="false" class="collapse">
-                        <li *ngFor="let subitem of item.submenu"><a [routerLink]="subitem.url">{{subitem.titulo}} </a>
+                        <li *ngFor="let subitem of item.submenu"><a [routerLink]="subitem.url" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{exact:true}">{{subitem.titulo}} </a>
                         </li>
                     </ul>
                 </li>
