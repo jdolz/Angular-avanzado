@@ -1,3 +1,13 @@
-GET http://localhost:3700/ 
+###
+GET http://localhost:3700/user/all 
 content-type: application/json
 
+###
+POST http://localhost:3700/user/new
+content-type: application/json
+
+{
+    "name": "Pedro",
+    "email": "asdf@asdf.com",
+    "password": "123"
+}

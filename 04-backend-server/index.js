@@ -10,12 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // Rutas
-app.get('/', (req, res) => {
-    res.status(200).json({
-        ok: true,
-        msg: 'Hola mundo'
-    })
-})
+app.use('/user', require('./routes/user.routes'));
 
 
 
