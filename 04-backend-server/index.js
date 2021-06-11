@@ -1,11 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+const config = require('./config/config');
 require('./database/config');
-const appPort = 3700;
+
+// Middlewares
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+app.use(cors());
 
 // Rutas
 app.get('/', (req, res) => {
-    res.json({
+    res.status(200).json({
         ok: true,
         msg: 'Hola mundo'
     })
@@ -13,9 +19,7 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(appPort, (req, res, err) => {
+app.listen(config.port, () => {
 
-    if (err) return console.error(err);
-
-    console.log(`Servidor corriendo en puerto ${appPort}`);
+    console.log(`Servidor corriendo en puerto ${config.port}`);
 });

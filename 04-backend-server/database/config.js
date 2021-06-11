@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
+const config = require('../config/config');
 
-const mongoUrl = 'mongodb+srv://jdolz:mongo_6549@cluster0.qzqzj.mongodb.net/hospitaldb';
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }, (err, res) => {
 
-mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true}, (err) => {
+    if (err) return console.error(`Error al conectar a la base de datos ${err}`);
+    console.log(`Conectado a la base de datos ${config.db}`);
 
-    if (err) return console.error(err);
-    console.log(`Conectado a la base de datos ${mongoUrl}`);
-    
 });
