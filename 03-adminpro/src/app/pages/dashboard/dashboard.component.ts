@@ -1,6 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
-import { SettingsService } from 'src/app/services/settings.service';
+import { Component, OnInit } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -10,16 +10,12 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class DashboardComponent implements OnInit {
 
-  text: string;
-  value: number;
+  
 
-  constructor(protected settingsService: SettingsService) {
+  constructor() {
   }
 
-  changing(){
-    console.log(this.text);
-    this.settingsService.subject.next(this.text);
-  }
+  
 
   ngOnInit(): void {
   }

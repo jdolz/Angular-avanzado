@@ -9,7 +9,6 @@ export class SettingsService {
   private linkTheme = document.querySelector('#theme');
   private links;
 
-  subject: Subject<string> = new Subject();
   
   constructor() {
     const url = localStorage.getItem('theme') || './assets/css/colors/purple-dark.css';
