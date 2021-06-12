@@ -16,4 +16,17 @@ validations.postUserChecks = [
     validator
 ];
 
+validations.putUserChecks = [
+    check('name', 'Name is required').trim().not().isEmpty(),
+    check('email', 'Email is required').trim().isEmail(),
+    check('role', 'Role is required').trim().not().isEmpty(),
+    validator
+];
+
+validations.postLoginChecks = [
+    check('password', 'Password is required').trim().not().isEmpty(),
+    check('email', 'Email is required').trim().isEmail(),
+    validator
+];
+
 module.exports = validations;

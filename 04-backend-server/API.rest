@@ -1,13 +1,40 @@
 ###
 GET http://localhost:3700/user/all 
 content-type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1MTQ4MzIsImV4cCI6MTYyMzU1ODAzMn0.xdsRln2r2StpCjrVU0GEipzWlWoCJt4qrptUybLAskU
 ###
 POST http://localhost:3700/user/new
 content-type: application/json
 
 {
+    "name": "Pablo",
+    "email": "asdf@asdf.com",
+    "password": "123"
+}
+
+###
+PUT http://localhost:3700/user/update/60c49158a92ab42ef4a6e72d
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1MTQ4MzIsImV4cCI6MTYyMzU1ODAzMn0.xdsRln2r2StpCjrVU0GEipzWlWoCJt4qrptUybLAskU
+
+{
     "name": "Pedro",
     "email": "asdf@asdf.com",
+    "password": "123",
+    "google": true
+}
+
+###
+DELETE http://localhost:3700/user/delete/60c49158a92ab42ef4a6e72d
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1MTQ4MzIsImV4cCI6MTYyMzU1ODAzMn0.xdsRln2r2StpCjrVU0GEipzWlWoCJt4qrptUybLAskU
+#################################################################
+
+POST http://localhost:3700/login/
+content-type: application/json
+
+
+{
+    "email": "asdf@asdff.com",
     "password": "123"
 }

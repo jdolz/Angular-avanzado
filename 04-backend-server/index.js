@@ -5,13 +5,13 @@ const config = require('./config/config');
 require('./database/config');
 
 // Middlewares
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
 // Rutas
 app.use('/user', require('./routes/user.routes'));
-
+app.use('/login', require('./routes/auth.routes'));
 
 
 app.listen(config.port, () => {
