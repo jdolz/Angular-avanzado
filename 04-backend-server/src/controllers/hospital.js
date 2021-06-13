@@ -40,6 +40,7 @@ hospitalController.edit = async (req, res = response) => {
         const {user, ...body} = req.body;
 
         const HospitalDB = await Hospital.findById(req.params.id);
+        if (!HospitalDB) res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
         if (HospitalDB.name === body.name) {
             delete body.name;
         } else {
@@ -48,7 +49,7 @@ hospitalController.edit = async (req, res = response) => {
         }
 
         const HospitalUpdated = await Hospital.findByIdAndUpdate(req.params.id, body, { new: true });
-        if (!HospitalUpdated) res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
+        
         res.status(200).json(HospitalUpdated);
     } catch (err) {
         if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });

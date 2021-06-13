@@ -34,6 +34,11 @@ validations.postHospitalChecks = [
     validator
 ];
 
+validations.postDoctorChecks = [
+    check('name', 'Name is required').trim().not().isEmpty(),
+    validator
+];
+
 
 
 module.exports = validations;

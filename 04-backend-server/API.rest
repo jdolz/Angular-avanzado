@@ -67,3 +67,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZ
 DELETE http://localhost:3700/hospital/delete/60c5fff29c8b8f3ad08b09a2
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+
+#################################################################
+
+###
+GET http://localhost:3700/doctor/all 
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+###
+POST http://localhost:3700/doctor/new
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+
+{
+    "name": "MRW"
+}
+
+###
+PUT http://localhost:3700/doctor/update/60c5fce638382f44c4b740c7
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+
+{
+    "name": "MRW",
+    "user": "60c4a03fb2bce5068ce31d77"
+}
+
+###
+DELETE http://localhost:3700/doctor/delete/60c5fff29c8b8f3ad08b09a2
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0

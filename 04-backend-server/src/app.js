@@ -11,6 +11,7 @@ app.use(cors());
 app.use('/user', require('./routes/user.routes'));
 app.use('/login', require('./routes/auth.routes'));
 app.use('/hospital', require('./routes/hospital.routes'));
+app.use('/doctor', require('./routes/doctor.routes'));
 
 module.exports = app;
 

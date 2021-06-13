@@ -49,6 +49,7 @@ userController.edit = async (req, res = response) => {
         delete req.body.google;
 
         const userDB = await User.findById(req.params.id);
+        if (!userDB) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
         if (userDB.email === req.body.email) {
             delete req.body.email;
         } else {
@@ -57,7 +58,7 @@ userController.edit = async (req, res = response) => {
         }
 
         const userUpdated = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!userUpdated) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
+        
         res.status(200).json(userUpdated);
     } catch (err) {
         if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
