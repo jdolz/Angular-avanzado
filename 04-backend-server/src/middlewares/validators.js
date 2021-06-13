@@ -36,6 +36,7 @@ validations.postHospitalChecks = [
 
 validations.postDoctorChecks = [
     check('name', 'Name is required').trim().not().isEmpty(),
+    check('hospital', 'Hospital is required').trim().not().isEmpty().isMongoId(),
     validator
 ];
 

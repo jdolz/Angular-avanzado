@@ -8,9 +8,16 @@ const userController = {};
 userController.getUsers = async (req, res = response) => {
 
     try {
-        const users = await User.find({});
+        const from = Number(req.query.from) || 0;
+
+        const [users, total] = await Promise.all([
+            User.find({}).skip(from).limit(5),
+            User.count()
+        ]);
+
+
         if (!users || users.length == 0) res.status(404).json({ ok: false, msg: 'No hay usuarios' });
-        res.status(200).json(users);
+        res.status(200).json({ ok: true, users, total });
     } catch (err) {
         if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
@@ -58,7 +65,7 @@ userController.edit = async (req, res = response) => {
         }
 
         const userUpdated = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        
+
         res.status(200).json(userUpdated);
     } catch (err) {
         if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });

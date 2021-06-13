@@ -7,7 +7,8 @@ const doctorController = {};
 doctorController.getdoctors = async (req, res = response) => {
 
     try {
-        const doctors = await Doctor.find({});
+        const doctors = await Doctor.find({}).populate('user','name img').populate('hospital','name img');
+
         if (!doctors || doctors.length == 0) res.status(404).json({ ok: false, msg: 'No hay doctores' });
         res.status(200).json(doctors);
     } catch (err) {
@@ -18,13 +19,15 @@ doctorController.getdoctors = async (req, res = response) => {
 
 doctorController.createNew = async (req, res = response) => {
 
+    const uid = req.uid;
+
     try {
         const { name } = req.body;
 
         const existeName = await Doctor.findOne({ name });
         if (existeName) res.status(400).json({ ok: false, msg: 'Doctor ya registrado' });
 
-        const newDoctor = new Doctor({ name: name, ...req.body });
+        const newDoctor = new Doctor({ name: name, user: uid, ...req.body });
         await newDoctor.save();
 
         res.status(200).json({ ok: true, msg: 'Doctor creado correctamente' });

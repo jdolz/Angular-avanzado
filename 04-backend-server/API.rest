@@ -7,8 +7,8 @@ POST http://localhost:3700/user/new
 content-type: application/json
 
 {
-    "name": "Pablo",
-    "email": "asdf@asdf.com",
+    "name": "test15",
+    "email": "test15@asdf.com",
     "password": "123"
 }
 
@@ -80,7 +80,8 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
 
 {
-    "name": "MRW"
+    "name": "De santos",
+    "hospital" : "60c61f1df133a33cc448e894"
 }
 
 ###
@@ -89,11 +90,15 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
 
 {
-    "name": "MRW",
+    "name": "De santos",
     "user": "60c4a03fb2bce5068ce31d77"
 }
 
 ###
 DELETE http://localhost:3700/doctor/delete/60c5fff29c8b8f3ad08b09a2
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+###
+GET http://localhost:3700/find/all/mr
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
