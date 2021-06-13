@@ -1,8 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const config = require('./config/config');
-require('./database/config');
 
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
@@ -12,9 +10,8 @@ app.use(cors());
 // Rutas
 app.use('/user', require('./routes/user.routes'));
 app.use('/login', require('./routes/auth.routes'));
+app.use('/hospital', require('./routes/hospital.routes'));
+
+module.exports = app;
 
 
-app.listen(config.port, () => {
-
-    console.log(`Servidor corriendo en puerto ${config.port}`);
-});

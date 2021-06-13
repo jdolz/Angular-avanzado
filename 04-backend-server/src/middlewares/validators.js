@@ -29,4 +29,11 @@ validations.postLoginChecks = [
     validator
 ];
 
+validations.postHospitalChecks = [
+    check('name', 'Name is required').trim().not().isEmpty(),
+    validator
+];
+
+
+
 module.exports = validations;
