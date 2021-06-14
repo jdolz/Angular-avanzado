@@ -1,7 +1,7 @@
 ###
 GET http://localhost:3700/user/all 
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM2ODc4OTcsImV4cCI6MTYyMzczMTA5N30.at_Xc_DHA9V3aXp98BvuFkjGOWye4KXUzkOf2keqZi0
 ###
 POST http://localhost:3700/user/new
 content-type: application/json
@@ -43,7 +43,7 @@ content-type: application/json
 ###
 GET http://localhost:3700/hospital/all 
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM2ODc4OTcsImV4cCI6MTYyMzczMTA5N30.at_Xc_DHA9V3aXp98BvuFkjGOWye4KXUzkOf2keqZi0
 ###
 POST http://localhost:3700/hospital/new
 content-type: application/json
@@ -102,3 +102,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZ
 GET http://localhost:3700/find/all/mr
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+
+###
+GET http://localhost:3700/find/concrete/use/pablo
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM2ODc4OTcsImV4cCI6MTYyMzczMTA5N30.at_Xc_DHA9V3aXp98BvuFkjGOWye4KXUzkOf2keqZi0

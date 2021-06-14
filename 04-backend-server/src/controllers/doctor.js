@@ -7,12 +7,12 @@ const doctorController = {};
 doctorController.getdoctors = async (req, res = response) => {
 
     try {
-        const doctors = await Doctor.find({}).populate('user','name img').populate('hospital','name img');
+        const doctors = await Doctor.find({}).populate('user', 'name img').populate('hospital', 'name img');
 
         if (!doctors || doctors.length == 0) res.status(404).json({ ok: false, msg: 'No hay doctores' });
         res.status(200).json(doctors);
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -32,7 +32,7 @@ doctorController.createNew = async (req, res = response) => {
 
         res.status(200).json({ ok: true, msg: 'Doctor creado correctamente' });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -40,7 +40,7 @@ doctorController.createNew = async (req, res = response) => {
 doctorController.edit = async (req, res = response) => {
 
     try {
-        const {user, hospital, ...body} = req.body;
+        const { user, hospital, ...body } = req.body;
 
         const DoctorDB = await Doctor.findById(req.params.id);
         if (!DoctorDB) res.status(404).json({ ok: false, msg: 'Doctor no encontrado' });
@@ -52,10 +52,10 @@ doctorController.edit = async (req, res = response) => {
         }
 
         const DoctorUpdated = await Doctor.findByIdAndUpdate(req.params.id, body, { new: true });
-        
+
         res.status(200).json(DoctorUpdated);
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -68,7 +68,7 @@ doctorController.delete = async (req, res = response) => {
         if (!DoctorDeleted) res.status(404).json({ ok: false, msg: 'Doctor no encontrado' });
         res.status(200).json({ ok: true, msg: 'Doctor eliminado' });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }

@@ -11,11 +11,11 @@ authController.login = async (req, res = response) => {
 
     try {
 
-        const userDB = await User.findOne({email});
+        const userDB = await User.findOne({ email });
         if (!userDB) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
 
         const match = bcrypt.compareSync(password, userDB.password);
-        if(!match) res.status(400).json({ ok: false, msg: 'Contraseña incorrecta' });
+        if (!match) res.status(400).json({ ok: false, msg: 'Contraseña incorrecta' });
 
         var token = await generarJWT(userDB.id);
         token = `Bearer ${token}`;
@@ -23,7 +23,7 @@ authController.login = async (req, res = response) => {
         res.status(200).json({ ok: true, Authorization: token });
 
     } catch (error) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 };
 

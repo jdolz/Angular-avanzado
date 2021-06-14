@@ -19,7 +19,7 @@ userController.getUsers = async (req, res = response) => {
         if (!users || users.length == 0) res.status(404).json({ ok: false, msg: 'No hay usuarios' });
         res.status(200).json({ ok: true, users, total });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -44,7 +44,7 @@ userController.createNew = async (req, res = response) => {
 
         res.status(200).json({ ok: true, msg: 'Usuario creado correctamente', Authorization: token });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -68,7 +68,7 @@ userController.edit = async (req, res = response) => {
 
         res.status(200).json(userUpdated);
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -81,7 +81,7 @@ userController.delete = async (req, res = response) => {
         if (!userDeleted) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
         res.status(200).json({ ok: true, msg: 'Usuario eliminado' });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }

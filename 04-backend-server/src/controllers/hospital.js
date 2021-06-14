@@ -11,7 +11,7 @@ hospitalController.getHospitals = async (req, res = response) => {
         if (!hospitals || hospitals.length == 0) res.status(404).json({ ok: false, msg: 'No hay hospitales' });
         res.status(200).json(hospitals);
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -31,7 +31,7 @@ hospitalController.createNew = async (req, res = response) => {
 
         res.status(200).json({ ok: true, msg: 'Hospital creado correctamente' });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -54,7 +54,7 @@ hospitalController.edit = async (req, res = response) => {
 
         res.status(200).json(HospitalUpdated);
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
@@ -67,7 +67,7 @@ hospitalController.delete = async (req, res = response) => {
         if (!HospitalDeleted) res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
         res.status(200).json({ ok: true, msg: 'Hospital eliminado' });
     } catch (err) {
-        if (err) res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 
 }
