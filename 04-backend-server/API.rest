@@ -104,6 +104,11 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
 
 ###
-GET http://localhost:3700/find/concrete/use/pablo
+GET http://localhost:3700/find/concrete/user/pablo
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM2ODc4OTcsImV4cCI6MTYyMzczMTA5N30.at_Xc_DHA9V3aXp98BvuFkjGOWye4KXUzkOf2keqZi0
+
+###
+PUT http://localhost:3700/upload/user/60c4a03fb2bce5068ce31d77
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM2ODc4OTcsImV4cCI6MTYyMzczMTA5N30.at_Xc_DHA9V3aXp98BvuFkjGOWye4KXUzkOf2keqZi0

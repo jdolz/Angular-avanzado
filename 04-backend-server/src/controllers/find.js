@@ -19,7 +19,7 @@ findController.getAll = async (req, res = response) => {
 
 
 
-        if (!user && !doctor && !hospital) res.status(404).json({ ok: false, msg: 'No encontrado' });
+        if (!user && !doctor && !hospital) return res.status(404).json({ ok: false, msg: 'No encontrado' });
 
         res.status(200).json({
             ok: true,
@@ -68,8 +68,8 @@ findController.getConcrete = async (req, res = response) => {
         // ##########
 
 
-        if (!result) res.status(400).json({ ok: false, msg: 'La tabla tiene que ser user/doctor/hospital' });
-        if (result.length == 0) res.status(404).json({ ok: false, msg: 'Ningún resultado' });
+        if (!result) return res.status(400).json({ ok: false, msg: 'La tabla tiene que ser user/doctor/hospital' });
+        if (result.length == 0) return res.status(404).json({ ok: false, msg: 'Ningún resultado' });
 
         res.status(200).json({
             ok: true,

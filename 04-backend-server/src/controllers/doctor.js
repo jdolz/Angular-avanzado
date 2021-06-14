@@ -9,7 +9,7 @@ doctorController.getdoctors = async (req, res = response) => {
     try {
         const doctors = await Doctor.find({}).populate('user', 'name img').populate('hospital', 'name img');
 
-        if (!doctors || doctors.length == 0) res.status(404).json({ ok: false, msg: 'No hay doctores' });
+        if (!doctors || doctors.length == 0) return res.status(404).json({ ok: false, msg: 'No hay doctores' });
         res.status(200).json(doctors);
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
@@ -25,7 +25,7 @@ doctorController.createNew = async (req, res = response) => {
         const { name } = req.body;
 
         const existeName = await Doctor.findOne({ name });
-        if (existeName) res.status(400).json({ ok: false, msg: 'Doctor ya registrado' });
+        if (existeName) return res.status(400).json({ ok: false, msg: 'Doctor ya registrado' });
 
         const newDoctor = new Doctor({ name: name, user: uid, ...req.body });
         await newDoctor.save();
@@ -43,12 +43,12 @@ doctorController.edit = async (req, res = response) => {
         const { user, hospital, ...body } = req.body;
 
         const DoctorDB = await Doctor.findById(req.params.id);
-        if (!DoctorDB) res.status(404).json({ ok: false, msg: 'Doctor no encontrado' });
+        if (!DoctorDB) return res.status(404).json({ ok: false, msg: 'Doctor no encontrado' });
         if (DoctorDB.name === req.body.name) {
             delete body.name;
         } else {
             const existeName = await Doctor.findOne({ name: body.name });
-            if (existeName) res.status(400).json({ ok: false, msg: 'Ya existe un Doctor con ese nombre' });
+            if (existeName) return res.status(400).json({ ok: false, msg: 'Ya existe un Doctor con ese nombre' });
         }
 
         const DoctorUpdated = await Doctor.findByIdAndUpdate(req.params.id, body, { new: true });
@@ -65,7 +65,7 @@ doctorController.delete = async (req, res = response) => {
     try {
 
         const DoctorDeleted = await Doctor.findByIdAndDelete(req.params.id, req.body);
-        if (!DoctorDeleted) res.status(404).json({ ok: false, msg: 'Doctor no encontrado' });
+        if (!DoctorDeleted) return res.status(404).json({ ok: false, msg: 'Doctor no encontrado' });
         res.status(200).json({ ok: true, msg: 'Doctor eliminado' });
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });

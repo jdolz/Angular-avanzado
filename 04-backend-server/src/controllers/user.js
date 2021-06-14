@@ -16,7 +16,7 @@ userController.getUsers = async (req, res = response) => {
         ]);
 
 
-        if (!users || users.length == 0) res.status(404).json({ ok: false, msg: 'No hay usuarios' });
+        if (!users || users.length == 0) return res.status(404).json({ ok: false, msg: 'No hay usuarios' });
         res.status(200).json({ ok: true, users, total });
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
@@ -30,7 +30,7 @@ userController.createNew = async (req, res = response) => {
         const { name, email, password } = req.body;
 
         const existeEmail = await User.findOne({ email });
-        if (existeEmail) res.status(400).json({ ok: false, msg: 'Usuario ya registrado' });
+        if (existeEmail) return res.status(400).json({ ok: false, msg: 'Usuario ya registrado' });
 
 
 
@@ -56,12 +56,12 @@ userController.edit = async (req, res = response) => {
         delete req.body.google;
 
         const userDB = await User.findById(req.params.id);
-        if (!userDB) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
+        if (!userDB) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
         if (userDB.email === req.body.email) {
             delete req.body.email;
         } else {
             const existeEmail = await User.findOne({ email: req.body.email });
-            if (existeEmail) res.status(400).json({ ok: false, msg: 'Ya existe un usuario con ese email' });
+            if (existeEmail) return res.status(400).json({ ok: false, msg: 'Ya existe un usuario con ese email' });
         }
 
         const userUpdated = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -78,7 +78,7 @@ userController.delete = async (req, res = response) => {
     try {
 
         const userDeleted = await User.findByIdAndDelete(req.params.id, req.body);
-        if (!userDeleted) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
+        if (!userDeleted) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
         res.status(200).json({ ok: true, msg: 'Usuario eliminado' });
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });

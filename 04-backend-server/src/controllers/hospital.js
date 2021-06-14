@@ -8,7 +8,7 @@ hospitalController.getHospitals = async (req, res = response) => {
 
     try {
         const hospitals = await Hospital.find({}).populate('user', 'name img');
-        if (!hospitals || hospitals.length == 0) res.status(404).json({ ok: false, msg: 'No hay hospitales' });
+        if (!hospitals || hospitals.length == 0) return res.status(404).json({ ok: false, msg: 'No hay hospitales' });
         res.status(200).json(hospitals);
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
@@ -24,7 +24,7 @@ hospitalController.createNew = async (req, res = response) => {
         const { name } = req.body;
 
         const existeName = await Hospital.findOne({ name });
-        if (existeName) res.status(400).json({ ok: false, msg: 'Hospital ya registrado' });
+        if (existeName) return res.status(400).json({ ok: false, msg: 'Hospital ya registrado' });
 
         const newHospital = new Hospital({ name: name, user: uid, ...req.body });
         await newHospital.save();
@@ -42,12 +42,12 @@ hospitalController.edit = async (req, res = response) => {
         const { user, ...body } = req.body;
 
         const HospitalDB = await Hospital.findById(req.params.id);
-        if (!HospitalDB) res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
+        if (!HospitalDB) return res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
         if (HospitalDB.name === body.name) {
             delete body.name;
         } else {
             const existeName = await Hospital.findOne({ name: body.name });
-            if (existeName) res.status(400).json({ ok: false, msg: 'Ya existe un Hospital con ese nombre' });
+            if (existeName) return res.status(400).json({ ok: false, msg: 'Ya existe un Hospital con ese nombre' });
         }
 
         const HospitalUpdated = await Hospital.findByIdAndUpdate(req.params.id, body, { new: true });
@@ -64,7 +64,7 @@ hospitalController.delete = async (req, res = response) => {
     try {
 
         const HospitalDeleted = await Hospital.findByIdAndDelete(req.params.id, req.body);
-        if (!HospitalDeleted) res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
+        if (!HospitalDeleted) return res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
         res.status(200).json({ ok: true, msg: 'Hospital eliminado' });
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });

@@ -12,10 +12,10 @@ authController.login = async (req, res = response) => {
     try {
 
         const userDB = await User.findOne({ email });
-        if (!userDB) res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
+        if (!userDB) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
 
         const match = bcrypt.compareSync(password, userDB.password);
-        if (!match) res.status(400).json({ ok: false, msg: 'Contraseña incorrecta' });
+        if (!match) return res.status(400).json({ ok: false, msg: 'Contraseña incorrecta' });
 
         var token = await generarJWT(userDB.id);
         token = `Bearer ${token}`;
