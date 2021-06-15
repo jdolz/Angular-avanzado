@@ -15,8 +15,8 @@ userController.getUsers = async (req, res = response) => {
             User.count()
         ]);
 
-
         if (!users || users.length == 0) return res.status(404).json({ ok: false, msg: 'No hay usuarios' });
+
         res.status(200).json({ ok: true, users, total });
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
@@ -31,8 +31,6 @@ userController.createNew = async (req, res = response) => {
 
         const existeEmail = await User.findOne({ email });
         if (existeEmail) return res.status(400).json({ ok: false, msg: 'Usuario ya registrado' });
-
-
 
         const newUser = new User({ name: name, email: email, password: password, ...req.body });
         const salt = bcrypt.genSaltSync();

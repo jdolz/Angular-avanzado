@@ -1,5 +1,6 @@
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid');
+const updateImg = require('../helpers/update-img');
 
 const uploadController = {};
 
@@ -36,6 +37,9 @@ uploadController.fileUpload = async (req, res = response) => {
 
         const fileName = `${uuidv4()}.${extension}`;
         const path = `src/uploads/${type}/${fileName}`;
+
+        const ok = await updateImg(type, id, fileName);
+        if (!ok) return res.status(400).json({ ok: false, msg: `No existe ese ${type}` });
 
         file.mv(path, (err) => {
             if (err) res.status(500).json({ ok: false, msg: `Error al mover la imagen ${err}` });
