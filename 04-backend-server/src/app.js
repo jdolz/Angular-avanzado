@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(expressFileUpload());
 app.use(cors());
+app.use(express.static('src/public'));
 
 // Rutas
 app.use('/user', require('./routes/user.routes'));
