@@ -40,6 +40,10 @@ validations.postDoctorChecks = [
     validator
 ];
 
+validations.postGoogleChecks = [
+    check('token', 'Google token is required').trim().not().isEmpty(),
+    validator
+];
 
 
 module.exports = validations;

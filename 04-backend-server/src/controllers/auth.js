@@ -2,6 +2,7 @@ const User = require('../models/user');
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
+const { googleVerify } = require('../helpers/google');
 
 const authController = {};
 
@@ -26,5 +27,31 @@ authController.login = async (req, res = response) => {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }
 };
+
+authController.googleLogin = async (req, res = response) => {
+
+    try {
+
+        const { name, email, picture } = await googleVerify(req.body.token);
+
+        let user;
+        userDB = await User.findOne({ email });
+
+        if (userDB) { user = userDB; user.google = true; }
+        else { user = new User({ name, email, img: picture, password: '@@@', google: true }); }
+
+        await user.save();
+
+        var token = await generarJWT(user.id);
+        token = `Bearer ${token}`;
+
+        res.status(200).json({ ok: true, Authorization: token });
+
+    } catch (err) {
+        res.status(401).json({ ok: false, msg: 'Token no válido' });
+    }
+
+}
+
 
 module.exports = authController;
