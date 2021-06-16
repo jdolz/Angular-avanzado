@@ -43,7 +43,7 @@ content-type: application/json
 ###
 GET http://localhost:3700/hospital/all 
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM2ODc4OTcsImV4cCI6MTYyMzczMTA5N30.at_Xc_DHA9V3aXp98BvuFkjGOWye4KXUzkOf2keqZi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM3NjYwMDAsImV4cCI6MTYyMzgwOTIwMH0.apD_r-BM3k8EZbPe_b9_zGFl81pUcMuBYn1BqyXtgwg
 ###
 POST http://localhost:3700/hospital/new
 content-type: application/json
@@ -64,9 +64,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZ
 }
 
 ###
-DELETE http://localhost:3700/hospital/delete/60c5fff29c8b8f3ad08b09a2
+DELETE http://localhost:3700/hospital/delete/60c5fce638382f44c4b740c7
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM1ODc4NjksImV4cCI6MTYyMzYzMTA2OX0.qcAKZeOCgMm1JmF5zaHxCsb0LF_1q-TqAT4frnhU2v0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MGM0YTAzZmIyYmNlNTA2OGNlMzFkNzciLCJpYXQiOjE2MjM3NjYwMDAsImV4cCI6MTYyMzgwOTIwMH0.apD_r-BM3k8EZbPe_b9_zGFl81pUcMuBYn1BqyXtgwg
 
 #################################################################
 

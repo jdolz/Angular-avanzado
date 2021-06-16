@@ -12,7 +12,7 @@ userController.getUsers = async (req, res = response) => {
 
         const [users, total] = await Promise.all([
             User.find({}).skip(from).limit(5),
-            User.count()
+            User.countDocuments()
         ]);
 
         if (!users || users.length == 0) return res.status(404).json({ ok: false, msg: 'No hay usuarios' });
