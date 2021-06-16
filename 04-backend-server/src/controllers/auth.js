@@ -53,5 +53,14 @@ authController.googleLogin = async (req, res = response) => {
 
 }
 
+authController.renewToken = async (req, res = response) => {
 
+    const uid = req.uid;
+
+    var token = await generarJWT(uid);
+    token = `Bearer ${token}`;
+
+    res.status(200).json({ ok: true, msg: 'Token renovado', Authorization: token });
+
+}
 module.exports = authController;

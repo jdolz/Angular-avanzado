@@ -51,7 +51,7 @@ doctorController.edit = async (req, res = response) => {
             if (existeName) return res.status(400).json({ ok: false, msg: 'Ya existe un Doctor con ese nombre' });
         }
 
-        const DoctorUpdated = await Doctor.findByIdAndUpdate(req.params.id, body, { new: true });
+        const DoctorUpdated = await Doctor.findByIdAndUpdate(req.params.id, { user: req.uid, body }, { new: true });
 
         res.status(200).json(DoctorUpdated);
     } catch (err) {

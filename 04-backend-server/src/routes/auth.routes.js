@@ -6,5 +6,6 @@ const router = Router();
 
 router.post('/', postLoginChecks, authController.login);
 router.post('/google', postGoogleChecks, authController.googleLogin);
+router.get('/renew', validarJwt, authController.renewToken);
 
 module.exports = router;

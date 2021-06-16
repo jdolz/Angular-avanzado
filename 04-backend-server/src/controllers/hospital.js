@@ -50,7 +50,7 @@ hospitalController.edit = async (req, res = response) => {
             if (existeName) return res.status(400).json({ ok: false, msg: 'Ya existe un Hospital con ese nombre' });
         }
 
-        const HospitalUpdated = await Hospital.findByIdAndUpdate(req.params.id, body, { new: true });
+        const HospitalUpdated = await Hospital.findByIdAndUpdate(req.params.id, { user: req.uid, body }, { new: true });
 
         res.status(200).json(HospitalUpdated);
     } catch (err) {
