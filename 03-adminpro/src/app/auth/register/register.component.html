@@ -88,9 +88,11 @@
                 </div>
                 <div class="row">
                     <div class="col text-danger">
-                        <p *ngIf="checkInput('name')">Name required</p>
-                        <p *ngIf="checkInput('email')">Email required</p>
-                        <p *ngIf="checkInput('terms')">Must accept terms & conditions</p>
+                        <p *ngIf="checkInput('name')">* Name required</p>
+                        <p *ngIf="checkInput('email')">* Email required</p>
+                        <p *ngIf="checkInput('terms')">* Must accept terms & conditions</p>
+                        <p *ngIf="checkInput('password')">* Password required</p>
+                        <p *ngIf="checkInput('password2')">* Passwords must match</p>                        
                     </div>
                 </div>
                 <div class="form-group text-center m-t-20">
