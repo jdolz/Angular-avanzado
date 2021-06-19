@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy{
+
+  newUser$: Subscription;
 
   formSubmitted = false;
   registerForm = this.fb.group({
@@ -20,15 +25,29 @@ export class RegisterComponent {
   } as AbstractControlOptions
   );
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private userService: UserService
+    ) { }
+    
+  ngOnDestroy(): void {
+    if(this.newUser$) this.newUser$.unsubscribe();
+  }
 
   createUser() {
     this.formSubmitted = true;
     console.log(this.registerForm);
 
-    if (this.registerForm.valid) console.log('Posteando');
-    else console.log('Formulario con errores');
+    if (this.registerForm.invalid) return console.log('Formulario con errores');
 
+    console.log('Posteando');
+    this.newUser$ = this.userService.creteUser(this.registerForm.value).subscribe(data =>{
+      console.log(data);
+      console.log('User created');
+      
+    }, err => {
+      Swal.fire('Error', err.error.msg, 'error');
+    });
+    
   }
 
   checkInput(input: string): boolean {
