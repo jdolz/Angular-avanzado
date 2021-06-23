@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ declare const gapi: any;
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService) { }
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private ngZone: NgZone) { }
   ngOnDestroy(): void {
     if (this.loginUser$) this.loginUser$.unsubscribe();
   }
@@ -40,9 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     if (this.loginForm.invalid) return console.log('Formulario con errores');
     this.loginUser$ = this.userService.loginUser(this.loginForm.value).subscribe(data => {
-      if (this.loginForm.get('remember').value) {sessionStorage.setItem('email', this.loginForm.get('email').value);}
-      else {sessionStorage.removeItem('email')};
-
+      if (this.loginForm.get('remember').value) { sessionStorage.setItem('email', this.loginForm.get('email').value); }
+      else { sessionStorage.removeItem('email') };
       this.router.navigateByUrl('/');
     }, (err) => {
       Swal.fire('Error', err.error.msg, 'error');
@@ -67,22 +66,25 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.startApp();
   }
 
-  startApp() {
-    gapi.load('auth2', () => {
-      this.auth2 = gapi.auth2.init({
-        client_id: '114359265375-78v6jf070s6o16lgv7ftv06jc3noc34p.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-      });
-      this.attachSignin(document.getElementById('my-signin2'));
-    });
+  async startApp() {
+    this.auth2 = await this.userService.googleInit();
+
+    this.attachSignin(document.getElementById('my-signin2'));
   };
+
 
   attachSignin(element) {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
         var id_token = googleUser.getAuthResponse().id_token;
-        this.userService.loginGoogle(id_token).subscribe();
-        this.router.navigateByUrl('/');
+        this.userService.loginGoogle(id_token).subscribe(
+          data => {
+            this.ngZone.run(() => {
+              this.router.navigateByUrl('/');
+            });
+          }
+        );
+
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
       });

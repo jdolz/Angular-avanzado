@@ -5,6 +5,7 @@ import { LoginForm, RegisterForm } from '../interfaces/user.interface';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
+declare const gapi: any;
 const base_url = environment.base_url;
 
 @Injectable({
@@ -12,9 +13,34 @@ const base_url = environment.base_url;
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  auth2: any;
 
-  validateToken() : Observable<boolean>{
+  constructor(private http: HttpClient) {
+    this.googleInit();
+  }
+
+  googleInit() {
+
+    return new Promise((resolve, reject) => {
+      gapi.load('auth2', () => {
+        this.auth2 = gapi.auth2.init({
+          client_id: '114359265375-78v6jf070s6o16lgv7ftv06jc3noc34p.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin',
+        });
+        resolve(this.auth2);
+      });
+    });
+
+  }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    this.auth2.signOut().then(() => {
+      console.log('User signed out');
+    });
+  }
+
+  validateToken(): Observable<boolean> {
     const token = sessionStorage.getItem('token') || '';
 
     return this.http.get(`${base_url}/login/renew`, { headers: { 'Authorization': token } })

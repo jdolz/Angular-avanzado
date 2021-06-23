@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
@@ -26,7 +27,8 @@ export class RegisterComponent implements OnDestroy{
   );
 
   constructor(private fb: FormBuilder,
-              private userService: UserService
+              private userService: UserService,
+              private router: Router
     ) { }
     
   ngOnDestroy(): void {
@@ -41,9 +43,7 @@ export class RegisterComponent implements OnDestroy{
 
     console.log('Posteando');
     this.newUser$ = this.userService.creteUser(this.registerForm.value).subscribe(data =>{
-      console.log(data);
-      console.log('User created');
-      
+      this.router.navigateByUrl('/');
     }, err => {
       Swal.fire('Error', err.error.msg, 'error');
     });
