@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { LoginForm, RegisterForm } from '../interfaces/user.interface';
+import { LoginForm, ProfileForm, RegisterForm } from '../interfaces/user.interface';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { User } from '../models/user.model';
 
 declare const gapi: any;
 const base_url = environment.base_url;
@@ -14,6 +15,7 @@ const base_url = environment.base_url;
 export class UserService {
 
   auth2: any;
+  user: User;
 
   constructor(private http: HttpClient) {
     this.googleInit();
@@ -33,6 +35,10 @@ export class UserService {
 
   }
 
+  get token(): string {
+    return sessionStorage.getItem('token') || '';
+  }
+
   logout() {
     sessionStorage.removeItem('token');
     this.auth2.signOut().then(() => {
@@ -41,15 +47,19 @@ export class UserService {
   }
 
   validateToken(): Observable<boolean> {
-    const token = sessionStorage.getItem('token') || '';
-
-    return this.http.get(`${base_url}/login/renew`, { headers: { 'Authorization': token } })
+    
+    return this.http.get(`${base_url}/login/renew`, { headers: { 'Authorization': this.token } })
       .pipe(
-        tap((resp: any) => {
+        map((resp: any) => {
           sessionStorage.setItem('token', resp.Authorization);
+          const { email, google, img = '', name, password, role, uid } = resp.user;
+          this.user = new User(name, email, password, img, role, google, uid);
+          return true;
         }),
-        map(resp => true),
-        catchError(err => of(false))
+        catchError(err => {
+          console.log(err);
+          return of(false);
+        })
       );
   }
 
@@ -61,6 +71,8 @@ export class UserService {
         })
       );
   }
+
+  // tap no transforma la response, map sí y tiene un return
 
   loginGoogle(token) {
     return this.http.post(`${base_url}/login/google`, { token })
@@ -79,6 +91,17 @@ export class UserService {
         })
       );
   }
+
+  updateProfile(formData?: ProfileForm, data?: { email: string, name: string }) {
+    
+    const body = { role: this.user.role, ...(formData || data) };
+
+    return this.http.put(`${base_url}/user/update/${this.user.uid}`, body, { headers: { 'Authorization': this.token } });
+    
+  }
+
+  
+
 }
 
 // fetch o http client

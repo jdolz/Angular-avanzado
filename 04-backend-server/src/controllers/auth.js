@@ -60,7 +60,9 @@ authController.renewToken = async (req, res = response) => {
     var token = await generarJWT(uid);
     token = `Bearer ${token}`;
 
-    res.status(200).json({ ok: true, msg: 'Token renovado', Authorization: token });
+    const user = await User.findById(uid);
+
+    res.status(200).json({ ok: true, msg: 'Token renovado', Authorization: token, user: user });
 
 }
 module.exports = authController;

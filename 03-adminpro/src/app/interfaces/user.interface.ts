@@ -11,3 +11,8 @@ export interface LoginForm {
     password: string;
     remember: boolean;
 }
+
+export interface ProfileForm {
+    name: string;
+    email: string;
+}

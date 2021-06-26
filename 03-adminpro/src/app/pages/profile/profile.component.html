@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">My user profile</h4>
+                <h6 class="card-subtitle">Settings</h6>
+                <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="form p-t-20">
+                    <div class="form-group">
+                        <label for="exampleInputuname">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input formControlName="name" type="text" class="form-control" id="exampleInputuname"
+                                placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+                                placeholder="Enter email">
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="profileForm.invalid"
+                        class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"
+                            aria-hidden="true"></i> Save changes</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Avatar</h4>
+                <h6 class="card-subtitle">User image</h6>
+
+                <img *ngIf="!imgTemp" class="w-75" [src]="user.imageUrl" alt="">
+                <img *ngIf="imgTemp" class="w-75" [src]="imgTemp" alt="">
+
+
+                <input type="file" (change)="uploadChange($event.target.files[0])">
+
+
+                <br><br>
+                <button type="button" [disabled]="!imgUpload" (click)="uploadImage()"
+                    class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"
+                        aria-hidden="true"></i> Change image</button>
+
+            </div>
+        </div>
+    </div>
+</div>
