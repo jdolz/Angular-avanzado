@@ -55,9 +55,11 @@ userController.edit = async (req, res = response) => {
 
         const userDB = await User.findById(req.params.id);
         if (!userDB) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
-        if (userDB.email === req.body.email) {
+
+        if (userDB.email === req.body.email) {            
             delete req.body.email;
         } else {
+            if (userDB.google) return res.status(400).json({ ok: false, msg: 'Los usuarios de Google no pueden modificar su email' });
             const existeEmail = await User.findOne({ email: req.body.email });
             if (existeEmail) return res.status(400).json({ ok: false, msg: 'Ya existe un usuario con ese email' });
         }
