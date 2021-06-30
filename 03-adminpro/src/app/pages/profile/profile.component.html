@@ -38,7 +38,7 @@
                 <img *ngIf="!imgTemp" class="w-75" [src]="user.imageUrl" alt="">
                 <img *ngIf="imgTemp" class="w-75" [src]="imgTemp" alt="">
 
-
+                <br><br>
                 <input type="file" (change)="uploadChange($event.target.files[0])">
 
 

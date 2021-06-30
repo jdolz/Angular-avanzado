@@ -12,6 +12,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './maintance/users/users.component';
+import { HospitalsComponent } from './maintance/hospitals/hospitals.component';
+import { DoctorsComponent } from './maintance/doctors/doctors.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { ProfileComponent } from './profile/profile.component';
     AccountSettingsComponent,
     PromesasComponent,
     RxjsComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsersComponent,
+    HospitalsComponent,
+    DoctorsComponent
   ],
   imports: [
     CommonModule,

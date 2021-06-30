@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { LoginForm, ProfileForm, RegisterForm } from '../interfaces/user.interface';
-import { catchError, map, tap } from 'rxjs/operators';
+import { LoadUsers, LoginForm, ProfileForm, RegisterForm } from '../interfaces/user.interface';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -39,6 +39,10 @@ export class UserService {
     return sessionStorage.getItem('token') || '';
   }
 
+  get headers() {
+    return { headers: { 'Authorization': this.token } };
+  }
+
   logout() {
     sessionStorage.removeItem('token');
     this.auth2.signOut().then(() => {
@@ -47,8 +51,8 @@ export class UserService {
   }
 
   validateToken(): Observable<boolean> {
-    
-    return this.http.get(`${base_url}/login/renew`, { headers: { 'Authorization': this.token } })
+
+    return this.http.get(`${base_url}/login/renew`, this.headers)
       .pipe(
         map((resp: any) => {
           sessionStorage.setItem('token', resp.Authorization);
@@ -93,15 +97,30 @@ export class UserService {
   }
 
   updateProfile(formData?: ProfileForm, data?: { email: string, name: string }) {
-    
+
     const body = { role: this.user.role, ...(formData || data) };
 
-    return this.http.put(`${base_url}/user/update/${this.user.uid}`, body, { headers: { 'Authorization': this.token } });
-    
+    return this.http.put(`${base_url}/user/update/${this.user.uid}`, body, this.headers);
+
   }
 
-  
+  loadUsers(from: number = 0) {
+    return this.http.get<LoadUsers>(`${base_url}/user/all?from=${from}`, this.headers).pipe(
+      // delay(1000),
+      map(resp => {
+        const users = resp.users.map(user =>
+          new User(user.name, user.email, '', user.img, user.role, user.google, user.uid));
+        resp.users = users;
+        return resp;
+      })
+    )
+  }
 
+  deleteUser(user: User) {
+
+    return this.http.delete(`${base_url}/user/delete/${user.uid}`, this.headers);
+    
+  }
 }
 
 // fetch o http client

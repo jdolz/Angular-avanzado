@@ -1,3 +1,5 @@
+import { User } from "../models/user.model";
+
 export interface RegisterForm {
     name: string;
     email: string;
@@ -15,4 +17,10 @@ export interface LoginForm {
 export interface ProfileForm {
     name: string;
     email: string;
+}
+
+export interface LoadUsers{
+    ok: boolean;
+    total: number;
+    users: User[];
 }

@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user.model';
 import { UserService } from './user.service';
 
 const base_url = environment.base_url;
