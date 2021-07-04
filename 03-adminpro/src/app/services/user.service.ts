@@ -104,6 +104,14 @@ export class UserService {
 
   }
 
+  updateRole(user: User) {
+
+    const body = { role: user.role, email: user.email, name: user.name };
+
+    return this.http.put(`${base_url}/user/update/${user.uid}`, body, this.headers);
+
+  }
+
   loadUsers(from: number = 0) {
     return this.http.get<LoadUsers>(`${base_url}/user/all?from=${from}`, this.headers).pipe(
       // delay(1000),
