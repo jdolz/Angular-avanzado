@@ -1,26 +1,62 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel1">New message</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name1">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Message:</label>
-                        <textarea class="form-control" id="message-text1"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+<div
+    class="background-modal-image animated fadeIn fast"
+    [ngClass]="{'hide': hideModal}"
+>
+    <div
+        class="modal fade show"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel1"
+        style="display: block;"
+    >
+        <div
+            class="modal-dialog"
+            role="document"
+        >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4
+                        class="modal-title"
+                        id="exampleModalLabel1"
+                    >
+                        Load image
+                    </h4>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span
+                            (click)="closeModal()"
+                            aria-hidden="true"
+                        >
+                            ×
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Select one image</h3>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        (click)="closeModal()"
+                        type="button"
+                        class="btn btn-default"
+                        data-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                    >
+                        Update image
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
 </div>

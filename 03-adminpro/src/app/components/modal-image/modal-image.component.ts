@@ -8,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalImageComponent implements OnInit {
 
+  hideModal: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  closeModal(){
+    this.hideModal = true;
   }
 
 }
