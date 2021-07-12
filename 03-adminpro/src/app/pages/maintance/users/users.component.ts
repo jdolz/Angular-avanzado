@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadUsers } from 'src/app/interfaces/user.interface';
 import { User } from 'src/app/models/user.model';
 import { FindService } from 'src/app/services/find.service';
+import { ModalImageService } from 'src/app/services/modal-image.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -20,10 +21,16 @@ export class UsersComponent implements OnInit {
   usersTemp: User[] = [];
   loading: boolean = true;
 
-  constructor(private userService: UserService, private findService: FindService) { }
+  constructor(private userService: UserService, private findService: FindService, private modalImageService: ModalImageService) { }
 
   ngOnInit(): void {
     this.loadUsers();
+  }
+
+  openModal(user: User){
+    console.log(user);
+    
+    this.modalImageService.openModal();
   }
 
   changeFrom(value: number) {
