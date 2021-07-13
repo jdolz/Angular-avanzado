@@ -16,16 +16,13 @@
                 <div class="modal-body">
                     <h3>Select one image</h3>
 
-                    <img *ngIf="!imgTemp" class="w-75" [src]="user.imageUrl" alt="">
+                    <img *ngIf="!imgTemp" class="w-75" [src]="modalImageService.img" alt="">
                     <img *ngIf="imgTemp" class="w-75" [src]="imgTemp" alt="">
 
                     <br><br>
                     <input type="file" (change)="uploadChange($event.target.files[0])">
 
-                    <br><br>
-                    <button type="button" [disabled]="!imgUpload" (click)="uploadImage()"
-                        class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"
-                            aria-hidden="true"></i> Change image</button>
+                
 
                 </div>
                 <div class="modal-footer">

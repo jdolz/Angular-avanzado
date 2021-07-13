@@ -17,7 +17,7 @@ export class ModalImageService {
     return this._hideModal;
   }
 
-  openModal(type: 'user' | 'doctor' | 'hospital', id: string, img?: string) {
+  openModal(type: 'user' | 'doctor' | 'hospital', id: string, img: string = 'no-img.jpg') {
     this._hideModal = false;
     this.type = type;
     this.id = id;
@@ -25,7 +25,7 @@ export class ModalImageService {
     if(img.includes('https')){
       this.img = img;
     }else{
-      this.img = `${base_url}/upload/${type}/${id}`;
+      this.img = `${base_url}/upload/${type}/${img}`;
     }
   }
 

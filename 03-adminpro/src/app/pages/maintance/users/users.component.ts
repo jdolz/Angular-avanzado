@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit {
   openModal(user: User){
     console.log(user);
     
-    this.modalImageService.openModal();
+    this.modalImageService.openModal('user', user.uid, user.img);
   }
 
   changeFrom(value: number) {

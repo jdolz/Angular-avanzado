@@ -9,7 +9,7 @@ import { ModalImageService } from 'src/app/services/modal-image.service';
 })
 export class ModalImageComponent implements OnInit {
   imgUpload: File;
-  imgTemp: any;
+  imgTemp: any =  null;
 
 
   constructor(public modalImageService: ModalImageService) { }
@@ -26,7 +26,7 @@ export class ModalImageComponent implements OnInit {
 
     this.imgUpload = file;
 
-    if (!file) return this.imgTemp = null;;
+    if (!file) return this.imgTemp = null;
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
