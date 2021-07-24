@@ -5,13 +5,18 @@
 
 
 
+
+
+
                 <input
-                    
                     type="text"
                     class="form-control"
                     placeholder="Search hospitals..."
                     #valueInput
                 >
+
+
+
 
 
 
@@ -22,11 +27,17 @@
 
 
 
+
+
+
 <div
     *ngIf="loading"
     class="row animated fadeIn fast"
 >
     <div class="col-12">
+
+
+
 
 
 
@@ -40,12 +51,31 @@
 
 
 
+
+
+
 <div class="row animated fadeIn fast">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total Hospitals ({{hospitals.length}})</h4>
-                <h6 class="card-subtitle">Hospitals registered in the app</h6>
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="card-title">Total Hospitals ({{hospitals.length}})</h4>
+                        <h6 class="card-subtitle">Hospitals registered in the app</h6>
+                    </div>
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary">
+                                <i class="fa fa-hospital-o"></i>
+                                Create hospital
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -57,23 +87,37 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let hospital of hospitals">
-                                <td class="text-center">
+                                <td class="text-center" width="75"
+                                height="75">
                                     <img
-                                        [src]="hospital.img"
+                                        [src]="hospital.img | image:'hospital'"
                                         class="cursor-pointer"
                                         width="75"
                                         height="75"
                                         (click)="openModal(hospital)"
                                     >
                                 </td>
-                                <td>
-                                    <input type="text" class="form-control" [(ngModel)]="hospital.name" placeholder="Hospital name">
-                                    
+                                <td class="align-middle">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        [(ngModel)]="hospital.name"
+                                        placeholder="Hospital name"
+                                    >
                                 </td>
-                      
-                                <td class="text-nowrap text-center">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Save changes"> <i
-                                            class="fa fa-pencil text-inverse m-r-10"></i> </a>
+
+
+
+
+                                <td class="text-nowrap text-center align-middle" width="75"
+                                height="75">
+                                    <a
+                                        href="#"
+                                        data-toggle="tooltip"
+                                        data-original-title="Save changes"
+                                    >
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
                                     <a
                                         (click)="deletehospital(hospital)"
                                         data-toggle="tooltip"
@@ -101,6 +145,9 @@
                         Next
                     </button>
                 </div> -->
+
+
+
 
 
 

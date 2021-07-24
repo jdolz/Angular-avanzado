@@ -21,7 +21,7 @@ export class HospitalsComponent implements OnInit {
 
   loadHospitals(): void {
     this.loading = true;
-    this.hospitalService.loadhospitals().subscribe(resp =>{
+    this.hospitalService.loadHospitals().subscribe(resp =>{
       this.loading = false;
       this.hospitals = resp;
     });

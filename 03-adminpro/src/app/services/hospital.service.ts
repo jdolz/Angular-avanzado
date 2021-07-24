@@ -21,9 +21,23 @@ export class HospitalService {
     return { headers: { 'Authorization': this.token } };
   }
 
-  loadhospitals() {
+  loadHospitals() {
     return this.http.get(`${base_url}/hospital/all`, this.headers).pipe(
       map((resp: { ok: boolean, hospitals: Hospital[] }) => resp.hospitals));
   }
+
+  createHospital(name: string) {
+    return this.http.post(`${base_url}/hospital/new`, { name }, this.headers);
+  }
+
+  updateHospital(_id: string, name: string) {
+    return this.http.put(`${base_url}/hospital/update/${_id}`, { name }, this.headers);
+  }
+
+  deleteUser(_id: string) {
+
+    return this.http.delete(`${base_url}/hospital/delete/${_id}`, this.headers);
+  }
+
 
 }
