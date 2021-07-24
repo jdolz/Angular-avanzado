@@ -35,8 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.loginSubmitted = true;
-    console.log(this.loginForm.value);
-    console.log(this.loginForm);
 
     if (this.loginForm.invalid) return console.log('Formulario con errores');
     this.loginUser$ = this.userService.loginUser(this.loginForm.value).subscribe(data => {

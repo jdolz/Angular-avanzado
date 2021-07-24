@@ -37,11 +37,9 @@ export class RegisterComponent implements OnDestroy{
 
   createUser() {
     this.formSubmitted = true;
-    console.log(this.registerForm);
 
     if (this.registerForm.invalid) return console.log('Formulario con errores');
 
-    console.log('Posteando');
     this.newUser$ = this.userService.creteUser(this.registerForm.value).subscribe(data =>{
       this.router.navigateByUrl('/');
     }, err => {
