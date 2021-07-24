@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -12,6 +12,8 @@ export class ModalImageService {
   type: string;
   id: string;
   img: string;
+
+  imgChanged: EventEmitter<string> = new EventEmitter();
 
   get hideModal(): boolean {
     return this._hideModal;

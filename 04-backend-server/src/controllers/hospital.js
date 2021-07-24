@@ -9,7 +9,7 @@ hospitalController.getHospitals = async (req, res = response) => {
     try {
         const hospitals = await Hospital.find({}).populate('user', 'name img');
         if (!hospitals || hospitals.length == 0) return res.status(404).json({ ok: false, msg: 'No hay hospitales' });
-        res.status(200).json(hospitals);
+        res.status(200).json({ok: true, hospitals});
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }

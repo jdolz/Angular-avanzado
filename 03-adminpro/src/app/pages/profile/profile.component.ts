@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { UserService } from 'src/app/services/user.service';
@@ -11,12 +13,14 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy{
 
   profileForm: FormGroup;
   user: User;
   imgUpload: File;
   imgTemp: any = null;
+
+  private unsubscribe$: Subject<any> = new Subject();
 
   constructor(private fb: FormBuilder, private userService: UserService, private fileUploadService: FileUploadService) {
     this.user = userService.user;
@@ -31,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
   updateProfile() {
 
-    this.userService.updateProfile(this.profileForm.value).subscribe((resp: User) => {
+    this.userService.updateProfile(this.profileForm.value).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: User) => {
       this.user.name = resp.name;
       this.user.email = resp.email;
 
@@ -68,6 +72,11 @@ export class ProfileComponent implements OnInit {
     }).catch((err) => {
       Swal.fire('Error', err.error.msg, 'error');
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

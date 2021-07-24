@@ -1,7 +1,8 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -14,9 +15,13 @@ declare const gapi: any;
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
+  private unsubscribe$: Subject<any> = new Subject();
+
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private ngZone: NgZone) { }
   ngOnDestroy(): void {
     if (this.loginUser$) this.loginUser$.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   auth2: any;
@@ -75,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
         var id_token = googleUser.getAuthResponse().id_token;
-        this.userService.loginGoogle(id_token).subscribe(
+        this.userService.loginGoogle(id_token).pipe(takeUntil(this.unsubscribe$)).subscribe(
           data => {
             this.ngZone.run(() => {
               this.router.navigateByUrl('/');

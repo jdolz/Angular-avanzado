@@ -1,17 +1,13 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { PagesModule } from './pages/pages.module';
-import { SharedModule } from './shared/shared.module';
-import { AuthModule } from './auth/auth.module';
-
 import { AppRoutingModule } from './app.routing';
+import { AuthModule } from './auth/auth.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { PagesModule } from './pages/pages.module';
+import { PipesModule } from './pipes/pipes.module';
+import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -23,7 +19,8 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     AppRoutingModule,
     PagesModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    PipesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

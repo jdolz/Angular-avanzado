@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { LoadUsers } from 'src/app/interfaces/user.interface';
 import { User } from 'src/app/models/user.model';
 import { FindService } from 'src/app/services/find.service';
@@ -13,7 +15,7 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy{
 
   from: number = 0;
   totalUsers: number = 0;
@@ -21,10 +23,16 @@ export class UsersComponent implements OnInit {
   usersTemp: User[] = [];
   loading: boolean = true;
 
+  private unsubscribe$: Subject<any> = new Subject();
+
   constructor(private userService: UserService, private findService: FindService, private modalImageService: ModalImageService) { }
 
   ngOnInit(): void {
     this.loadUsers();
+
+    this.modalImageService.imgChanged.pipe(takeUntil(this.unsubscribe$)).subscribe(data=>{
+      this.loadUsers();
+    });
   }
 
   openModal(user: User){
@@ -53,7 +61,7 @@ export class UsersComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService.loadUsers(this.from).subscribe((resp: LoadUsers) => {
+    this.userService.loadUsers(this.from).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: LoadUsers) => {
       this.totalUsers = resp.total;
       this.users = resp.users;
       this.usersTemp = this.users;
@@ -92,7 +100,7 @@ export class UsersComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.deleteUser(user).subscribe((resp) => {
+        this.userService.deleteUser(user).pipe(takeUntil(this.unsubscribe$)).subscribe((resp) => {
 
           this.loadUsers();
           Swal.fire(
@@ -109,9 +117,12 @@ export class UsersComponent implements OnInit {
 
   changeRole(user: User) {
     
-    this.userService.updateRole(user).subscribe();
+    this.userService.updateRole(user).pipe(takeUntil(this.unsubscribe$)).subscribe();
     
   }
 
-
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }
