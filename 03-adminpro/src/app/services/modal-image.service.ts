@@ -9,7 +9,7 @@ const base_url = environment.base_url;
 export class ModalImageService {
 
   private _hideModal: boolean = true;
-  type: string;
+  type: 'user' | 'doctor' | 'hospital';
   id: string;
   img: string;
 

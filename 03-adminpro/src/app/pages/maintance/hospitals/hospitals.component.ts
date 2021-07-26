@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Hospital } from 'src/app/models/hospital.model';
 import { HospitalService } from 'src/app/services/hospital.service';
+import { ModalImageService } from 'src/app/services/modal-image.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-hospitals',
@@ -8,23 +12,71 @@ import { HospitalService } from 'src/app/services/hospital.service';
   styles: [
   ]
 })
-export class HospitalsComponent implements OnInit {
+export class HospitalsComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
   hospitals: Hospital[] = [];
 
-  constructor(private hospitalService: HospitalService) { }
+  private unsubscribe$ = new Subject();
+
+  constructor(private hospitalService: HospitalService,
+    private modalImageService: ModalImageService) { }
 
   ngOnInit(): void {
     this.loadHospitals();
+    this.modalImageService.imgChanged.pipe(takeUntil(this.unsubscribe$)).subscribe((img) => {
+      this.loadHospitals()
+    });
   }
 
   loadHospitals(): void {
     this.loading = true;
-    this.hospitalService.loadHospitals().subscribe(resp =>{
+    this.hospitalService.loadHospitals().subscribe(resp => {
       this.loading = false;
       this.hospitals = resp;
     });
   }
 
+  saveChanges(hospital: Hospital) {
+    this.hospitalService.updateHospital(hospital._id, hospital.name).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      () => {
+        Swal.fire('Updated', hospital.name, 'success');
+      });
+  }
+
+  deleteHospital(hospital: Hospital) {
+    this.hospitalService.deleteHospital(hospital._id).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      () => {
+        this.loadHospitals();
+        Swal.fire('Deleted', hospital.name, 'success');
+      });
+  }
+
+  async openSweetAlert() {
+    const { value } = await Swal.fire<string>({
+      title: 'Create hospital',
+      text: 'Enter the name for the new Hospital',
+      input: 'text',
+      inputPlaceholder: 'Hospital name',
+      showCancelButton: true
+    });
+
+    if (value.trim().length > 0) {
+      this.hospitalService.createHospital(value).pipe(takeUntil(this.unsubscribe$)).subscribe(
+        (hospital: Hospital) => {
+          this.loadHospitals();
+          Swal.fire('Created', hospital.name, 'success');
+        });
+    }
+
+  }
+
+  openModal(hospital: Hospital) {
+    this.modalImageService.openModal('hospital', hospital._id, hospital.img);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }

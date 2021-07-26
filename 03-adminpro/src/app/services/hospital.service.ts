@@ -34,7 +34,7 @@ export class HospitalService {
     return this.http.put(`${base_url}/hospital/update/${_id}`, { name }, this.headers);
   }
 
-  deleteUser(_id: string) {
+  deleteHospital(_id: string) {
 
     return this.http.delete(`${base_url}/hospital/delete/${_id}`, this.headers);
   }

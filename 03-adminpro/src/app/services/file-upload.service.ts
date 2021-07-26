@@ -16,7 +16,7 @@ export class FileUploadService {
     this.token = userService.token;
   }
 
-  async updateImage(file: File, type: 'user' | 'hopital' | 'doctor', id: string) {
+  async updateImage(file: File, type: 'user' | 'hospital' | 'doctor', id: string) {
     try {
       const url = `${base_url}/upload/${type}/${id}`;
       const formData = new FormData();
