@@ -23,7 +23,7 @@ export class FindService {
   }
 
   private mapHospitals(arr: any[]): Hospital[] {
-    return arr.map(hospital => new Hospital(hospital.name, hospital._id, hospital.img, hospital.user));
+    return arr;
   }
 
   async find(table: 'user' | 'hospital' | 'doctor', name: string) {
