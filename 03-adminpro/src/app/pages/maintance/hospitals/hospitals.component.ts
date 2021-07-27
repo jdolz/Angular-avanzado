@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Hospital } from 'src/app/models/hospital.model';
+import { FindService } from 'src/app/services/find.service';
 import { HospitalService } from 'src/app/services/hospital.service';
 import { ModalImageService } from 'src/app/services/modal-image.service';
 import Swal from 'sweetalert2';
@@ -16,11 +17,13 @@ export class HospitalsComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
   hospitals: Hospital[] = [];
+  hospitalTemp: Hospital[] = [];
 
   private unsubscribe$ = new Subject();
 
   constructor(private hospitalService: HospitalService,
-    private modalImageService: ModalImageService) { }
+    private modalImageService: ModalImageService,
+    private findService: FindService) { }
 
   ngOnInit(): void {
     this.loadHospitals();
@@ -34,6 +37,23 @@ export class HospitalsComponent implements OnInit, OnDestroy {
     this.hospitalService.loadHospitals().subscribe(resp => {
       this.loading = false;
       this.hospitals = resp;
+      this.hospitalTemp = this.hospitals;
+    });
+  }
+
+  findHospitals(value) {
+    this.loading = true;
+
+    if (value.length === 0) {
+      this.loading = false;
+      return this.hospitals = this.hospitalTemp;
+    }
+
+    this.findService.find('hospital', value).then((resp) => {
+      this.hospitals = resp.result;
+      this.loading = false;
+    }).catch((err) => {
+      console.log(err);
     });
   }
 
@@ -53,7 +73,7 @@ export class HospitalsComponent implements OnInit, OnDestroy {
   }
 
   async openSweetAlert() {
-    const { value } = await Swal.fire<string>({
+    const { value = '' } = await Swal.fire<string>({
       title: 'Create hospital',
       text: 'Enter the name for the new Hospital',
       input: 'text',
