@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Doctor } from '../models/doctor.model';
 import { Hospital } from '../models/hospital.model';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
@@ -26,6 +27,10 @@ export class FindService {
     return arr;
   }
 
+  private mapDoctors(arr: any[]): Doctor[] {
+    return arr;
+  }
+
   async find(table: 'user' | 'hospital' | 'doctor', name: string) {
     try {
 
@@ -38,7 +43,7 @@ export class FindService {
       const CASES = {
         'user': this.mapUsers(data.result),
         'hospital': this.mapHospitals(data.result),
-        'doctor': []
+        'doctor': this.mapDoctors(data.result)
       };
 
       data.result = CASES[table] ? CASES[table] : undefined;

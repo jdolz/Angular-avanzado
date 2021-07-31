@@ -10,7 +10,7 @@ doctorController.getdoctors = async (req, res = response) => {
         const doctors = await Doctor.find({}).populate('user', 'name img').populate('hospital', 'name img');
 
         if (!doctors || doctors.length == 0) return res.status(404).json({ ok: false, msg: 'No hay doctores' });
-        res.status(200).json(doctors);
+        res.status(200).json({ok: true, doctors});
     } catch (err) {
         res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
     }

@@ -1,0 +1,137 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input
+                    (keyup)="findDoctors(valueInput.value)"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search doctors..."
+                    #valueInput
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div
+    *ngIf="loading"
+    class="row animated fadeIn fast"
+>
+    <div class="col-12">
+
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Loading</h4>
+            <i class="fa fa-spin fa-spinner fa-2x"></i>
+            <p class="mb-0">Please wait</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="card-title">Total Doctors ({{doctors.length}})</h4>
+                        <h6 class="card-subtitle">Doctors registered in the app</h6>
+                    </div>
+                    <div class="col">
+                        <div class="text-right">
+                            <button
+                                (click)="openSweetAlert()"
+                                type="button"
+                                class="btn btn-primary"
+                            >
+                                <i class="fa fa-doctor-o"></i>
+                                Create doctor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th class="text-nowrap">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doctor of doctors">
+                                <td
+                                    class="text-center"
+                                    width="75"
+                                    height="75"
+                                >
+                                    <img
+                                        [src]="doctor.img | image:'doctor'"
+                                        class="cursor-pointer"
+                                        width="75"
+                                        height="75"
+                                        (click)="openModal(doctor)"
+                                    >
+                                </td>
+                                <td class="align-middle">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        [(ngModel)]="doctor.name"
+                                        placeholder="Doctor name"
+                                    >
+                                </td>
+
+
+                                <td
+                                    class="text-nowrap text-center align-middle"
+                                    width="75"
+                                    height="75"
+                                >
+                                    <a
+                                        (click)="saveChanges(doctor)"
+                                        data-toggle="tooltip"
+                                        data-original-title="Save changes"
+                                    >
+                                        <i class="fa fa-pencil text-inverse m-r-10 cursor-pointer"></i>
+                                    </a>
+                                    <a
+                                        (click)="deleteHospital(doctor)"
+                                        data-toggle="tooltip"
+                                        data-original-title="Close"
+                                    >
+                                        <i class="fa fa-close text-danger cursor-pointer"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div *ngIf="valueInput.value.length === 0">
+                    <button
+                        (click)="changeFrom(-5)"
+                        class="btn btn-secondary"
+                    >
+                        Previous
+                    </button>
+                    &nbsp;
+                    <button
+                        (click)="changeFrom(5)"
+                        class="btn btn-secondary"
+                    >
+                        Next
+                    </button>
+                </div> -->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
