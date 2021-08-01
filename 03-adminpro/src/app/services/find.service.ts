@@ -40,13 +40,18 @@ export class FindService {
 
       const data = await resp.json();
 
-      const CASES = {
-        'user': this.mapUsers(data.result),
-        'hospital': this.mapHospitals(data.result),
-        'doctor': this.mapDoctors(data.result)
-      };
+      if (data.ok) {
+        const CASES = {
+          'user': this.mapUsers(data.result),
+          'hospital': this.mapHospitals(data.result),
+          'doctor': this.mapDoctors(data.result)
+        };
 
-      data.result = CASES[table] ? CASES[table] : undefined;
+        data.result = CASES[table];
+
+      } else {
+        data.result = [];
+      }
 
       return data;
 

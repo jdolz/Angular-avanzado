@@ -24,14 +24,22 @@ export class DoctorService {
   loadDoctors() {
     return this.http.get(`${base_url}/doctor/all`, this.headers).pipe(
       map((response: { ok: boolean, doctors: Doctor[] }) => response.doctors)
-    )
+    );
   }
 
-  createDoctor(doctor: Doctor) {
-    return this.http.post(`${base_url}/doctor/new`, doctor, this.headers);
+  getDoctorById(_id: string) {
+    return this.http.get(`${base_url}/doctor/${_id}`, this.headers).pipe(
+      map((response: { ok: boolean, doctor: Doctor }) => response.doctor)
+    );
   }
 
-  updateDoctor(doctor: Doctor) {
+  createDoctor(doctor: { name: string, hospital: string }) {
+    return this.http.post(`${base_url}/doctor/new`, doctor, this.headers).pipe(
+      map((response: { ok: boolean, msg: string, doctor: Doctor }) => response.doctor)
+    );
+  }
+
+  updateDoctor(doctor: { _id: string, name: string, hospital: string }) {
     return this.http.put(`${base_url}/doctor/update/${doctor._id}`, doctor, this.headers);
   }
 

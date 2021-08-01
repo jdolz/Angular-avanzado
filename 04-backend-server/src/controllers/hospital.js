@@ -39,7 +39,7 @@ hospitalController.createNew = async (req, res = response) => {
 hospitalController.edit = async (req, res = response) => {
 
     try {
-        const { user, ...body } = req.body;
+        const body = { user: req.uid, ...req.body };
 
         const HospitalDB = await Hospital.findById(req.params.id);
         if (!HospitalDB) return res.status(404).json({ ok: false, msg: 'Hospital no encontrado' });
@@ -50,7 +50,7 @@ hospitalController.edit = async (req, res = response) => {
             if (existeName) return res.status(400).json({ ok: false, msg: 'Ya existe un Hospital con ese nombre' });
         }
 
-        const HospitalUpdated = await Hospital.findByIdAndUpdate(req.params.id, { user: req.uid, body }, { new: true });
+        const HospitalUpdated = await Hospital.findByIdAndUpdate(req.params.id, body, { new: true });
 
         res.status(200).json(HospitalUpdated);
     } catch (err) {

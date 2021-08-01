@@ -5,6 +5,7 @@ const { postDoctorChecks } = require('../middlewares/validators');
 const router = Router();
 
 router.get('/all', validarJwt, doctorController.getdoctors);
+router.get('/:id', validarJwt, doctorController.getdoctor);
 router.post('/new', validarJwt, postDoctorChecks, doctorController.createNew);
 router.put('/update/:id', validarJwt, postDoctorChecks, doctorController.edit);
 router.delete('/delete/:id', validarJwt, doctorController.delete);

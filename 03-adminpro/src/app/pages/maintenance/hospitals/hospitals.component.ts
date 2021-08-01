@@ -34,7 +34,7 @@ export class HospitalsComponent implements OnInit, OnDestroy {
 
   loadHospitals(): void {
     this.loading = true;
-    this.hospitalService.loadHospitals().subscribe(resp => {
+    this.hospitalService.loadHospitals().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       this.loading = false;
       this.hospitals = resp;
       this.hospitalTemp = this.hospitals;
@@ -65,11 +65,24 @@ export class HospitalsComponent implements OnInit, OnDestroy {
   }
 
   deleteHospital(hospital: Hospital) {
-    this.hospitalService.deleteHospital(hospital._id).pipe(takeUntil(this.unsubscribe$)).subscribe(
-      () => {
-        this.loadHospitals();
-        Swal.fire('Deleted', hospital.name, 'success');
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#dc3545',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.hospitalService.deleteHospital(hospital._id).pipe(takeUntil(this.unsubscribe$)).subscribe(
+          () => {
+            this.loadHospitals();
+            Swal.fire('Deleted', hospital.name, 'success');
+          });
+      }
+    });
+
   }
 
   async openSweetAlert() {
