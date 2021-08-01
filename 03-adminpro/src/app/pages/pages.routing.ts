@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { SearchesComponent } from './searches/searches.component';
 
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Profile' } },
+      { path: 'searches/:term', component: SearchesComponent, data: { titulo: 'Searches' } },
 
       // Maintenance
       { path: 'users', component: UsersComponent, data: { titulo: 'Users' } },

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Doctor } from '../models/doctor.model';
@@ -15,7 +16,7 @@ export class FindService {
   token: string;
   user: User;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private http: HttpClient) {
     this.token = userService.token;
   }
 
@@ -29,6 +30,11 @@ export class FindService {
 
   private mapDoctors(arr: any[]): Doctor[] {
     return arr;
+  }
+
+  globalFind(term: string) {
+    const url = `${base_url}/find/all/${term}`;
+    return this.http.get(url, { headers: { 'Authorization': this.token } });
   }
 
   async find(table: 'user' | 'hospital' | 'doctor', name: string) {
