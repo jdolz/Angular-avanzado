@@ -21,6 +21,11 @@ export class UserService {
     this.googleInit();
   }
 
+  saveSessionStorage(token: string, menu: any) {
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   googleInit() {
 
     return new Promise((resolve, reject) => {
@@ -43,8 +48,13 @@ export class UserService {
     return { headers: { 'Authorization': this.token } };
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' { 
+    return this.user.role;
+  }
+
   logout() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('menu');
     this.auth2.signOut().then(() => {
       console.log('User signed out');
     });
@@ -55,9 +65,11 @@ export class UserService {
     return this.http.get(`${base_url}/login/renew`, this.headers)
       .pipe(
         map((resp: any) => {
-          sessionStorage.setItem('token', resp.Authorization);
           const { email, google, img = '', name, password, role, uid } = resp.user;
           this.user = new User(name, email, password, img, role, google, uid);
+
+          this.saveSessionStorage(resp.Authorization, resp.menu);
+
           return true;
         }),
         catchError(err => {
@@ -71,7 +83,7 @@ export class UserService {
     return this.http.post(`${base_url}/login`, formData)
       .pipe(
         tap((resp: any) => {
-          sessionStorage.setItem('token', resp.Authorization);
+          this.saveSessionStorage(resp.Authorization, resp.menu);
         })
       );
   }
@@ -82,7 +94,7 @@ export class UserService {
     return this.http.post(`${base_url}/login/google`, { token })
       .pipe(
         tap((resp: any) => {
-          sessionStorage.setItem('token', resp.Authorization);
+          this.saveSessionStorage(resp.Authorization, resp.menu);
         })
       );
   }
@@ -91,7 +103,7 @@ export class UserService {
     return this.http.post(`${base_url}/user/new`, formData)
       .pipe(
         tap((resp: any) => {
-          sessionStorage.setItem('token', resp.Authorization);
+          this.saveSessionStorage(resp.Authorization, resp.menu);
         })
       );
   }
@@ -127,7 +139,7 @@ export class UserService {
   deleteUser(user: User) {
 
     return this.http.delete(`${base_url}/user/delete/${user.uid}`, this.headers);
-    
+
   }
 }
 

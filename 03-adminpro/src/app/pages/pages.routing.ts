@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminGuard } from '../guards/admin.guard';
 import { AuthGuard } from '../guards/auth.guard';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -33,10 +34,12 @@ const routes: Routes = [
       { path: 'searches/:term', component: SearchesComponent, data: { titulo: 'Searches' } },
 
       // Maintenance
-      { path: 'users', component: UsersComponent, data: { titulo: 'Users' } },
       { path: 'hospitals', component: HospitalsComponent, data: { titulo: 'Hospitals' } },
       { path: 'doctors', component: DoctorsComponent, data: { titulo: 'Doctors' } },
-      { path: 'doctor/:id', component: DoctorComponent, data: { titulo: 'Doctor' } }
+      { path: 'doctor/:id', component: DoctorComponent, data: { titulo: 'Doctor' } },
+
+      // Admin only
+      { path: 'users', canActivate: [AdminGuard], component: UsersComponent, data: { titulo: 'Users' } },
     ]
   },
 ];

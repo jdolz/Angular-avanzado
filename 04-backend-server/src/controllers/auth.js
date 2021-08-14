@@ -3,6 +3,7 @@ const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 const { googleVerify } = require('../helpers/google');
+const { getMenuFrontEnd } = require('../helpers/menu-frontend');
 
 const authController = {};
 
@@ -21,10 +22,10 @@ authController.login = async (req, res = response) => {
         var token = await generarJWT(userDB.id);
         token = `Bearer ${token}`;
 
-        res.status(200).json({ ok: true, Authorization: token });
+        res.status(200).json({ ok: true, Authorization: token, menu: await getMenuFrontEnd(userDB.role) });
 
     } catch (error) {
-        res.status(500).json({ ok: false, msg: `Error del servidor ${err}` });
+        res.status(500).json({ ok: false, msg: `Error del servidor ${error}` });
     }
 };
 
@@ -45,7 +46,7 @@ authController.googleLogin = async (req, res = response) => {
         var token = await generarJWT(user.id);
         token = `Bearer ${token}`;
 
-        res.status(200).json({ ok: true, Authorization: token });
+        res.status(200).json({ ok: true, Authorization: token, menu: await getMenuFrontEnd(user.role) });
 
     } catch (err) {
         res.status(401).json({ ok: false, msg: 'Token no válido' });
@@ -62,7 +63,10 @@ authController.renewToken = async (req, res = response) => {
 
     const user = await User.findById(uid);
 
-    res.status(200).json({ ok: true, msg: 'Token renovado', Authorization: token, user: user });
+    res.status(200).json({
+        ok: true, msg: 'Token renovado', Authorization: token, user: user,
+        menu: await getMenuFrontEnd(user.role)
+    });
 
 }
 module.exports = authController;
