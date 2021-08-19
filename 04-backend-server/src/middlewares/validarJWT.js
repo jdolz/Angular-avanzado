@@ -33,7 +33,7 @@ const validarAdminRole = async (req, res, next) => {
         const userDB = await User.findById(uid);
         if (!userDB) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
 
-        if(userDB.role !== 'ADMIN_ROLE'){
+        if (userDB.role !== 'ADMIN_ROLE') {
             return res.status(403).json({ ok: false, msg: 'Usuario no autorizado' });
         }
 
@@ -43,4 +43,28 @@ const validarAdminRole = async (req, res, next) => {
     }
 }
 
-module.exports = { validarJwt, validarAdminRole };
+const validarAdminRoleOrSameUser = async (req, res, next) => {
+
+    const uid = req.uid;
+    const id = req.params.id;
+
+    try {
+
+
+
+        const userDB = await User.findById(uid);
+        if (!userDB) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
+
+        if (userDB.role === 'ADMIN_ROLE' || uid === id) {
+            next();
+        } else {
+
+            return res.status(403).json({ ok: false, msg: 'Usuario no autorizado' });
+        }
+
+    } catch (error) {
+        res.status(500).json({ ok: false, msg: `Error del servidor ${error}` });
+    }
+}
+
+module.exports = { validarJwt, validarAdminRole, validarAdminRoleOrSameUser };
