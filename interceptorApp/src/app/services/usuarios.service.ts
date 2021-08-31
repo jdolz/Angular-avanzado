@@ -16,7 +16,7 @@ export class UsuariosService {
     params = params.append('name', 'Bluth');
 
     let headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmZmM1N2FmMWNlZjJhNDRmZGE3MGQiLCJpYXQiOjE2MjIxNDYxMzUsImV4cCI6MTYyMjE4OTMzNX0.glGdlz-5eQbs3ZfIIThojlt71IweirWZ7sx2p9QpgtE'
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
     });
 
     return this.http.get('https://reqres.in/api/users', { params, headers })
