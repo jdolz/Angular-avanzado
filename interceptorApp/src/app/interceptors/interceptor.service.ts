@@ -12,7 +12,7 @@ export class InterceptorService implements HttpInterceptor {
 
 
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
 
     const LANGUAGE_IN_USE: string = window.navigator.language;
     const CURRENT_USER_token: string = 'ASDF4568767867578';
@@ -27,7 +27,7 @@ export class InterceptorService implements HttpInterceptor {
 
     const reqClone = req.clone({
       headers
-    })
+    });
 
     console.log('Through interceptor');
     return next.handle(reqClone).pipe(
