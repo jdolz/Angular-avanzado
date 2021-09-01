@@ -1,7 +1,17 @@
+import { mensaje } from "./string";
+
 // Jasmine
+describe('Pruebas de Strings', () => {
+    it('should return a string', () => {
+        const resp = mensaje('Fernando');
 
-describe('Pruebas de Strings');
+        expect(typeof resp).toBe('string');
+    });
 
-it('Debe de regresar un string');
+    it('should contain the name from the arguments', () => {
+        const nombre = 'Fernando';
+        const resp = mensaje('Fernando');
 
-it('Debe de regresar un string');
+        expect(resp).toContain(nombre);
+    });
+});
